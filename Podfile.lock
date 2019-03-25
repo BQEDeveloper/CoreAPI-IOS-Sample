@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.7.2)
+  - lottie-ios (2.5.0)
+  - ReachabilitySwift (4.1.0)
+  - SwiftyJSON (4.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - lottie-ios
+  - ReachabilitySwift
+  - SwiftyJSON
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - lottie-ios
+    - ReachabilitySwift
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+
+PODFILE CHECKSUM: fc13997c21394645bf26df3bbf964be82fbfec62
+
+COCOAPODS: 1.5.3
