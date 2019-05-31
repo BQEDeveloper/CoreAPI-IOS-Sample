@@ -1,7 +1,7 @@
-# CoreAPI-IOS-Sample
-Sample code demonstrating OAuth and other features of Core API
+# iOS Sample App
+A sample app demonstrating OAuth 2.0 and other features using Core API.
 
-## How to
+## Getting Started
 ### Setting URL Schemes
 In info tab of your target
 ![Image](Assets/URLSchemes.png "Image")
