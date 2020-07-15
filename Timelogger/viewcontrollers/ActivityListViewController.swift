@@ -84,6 +84,9 @@ class ActivityListViewController: UIViewController, UITableViewDataSource, UITab
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "showAddEditActivity"){
             let controller = segue.destination as? AddActivityViewController
+            if #available(iOS 13.0, *) {
+                controller?.presentationController?.delegate = self
+            }
             controller?.activity = sender as? Activity
         }
     }
@@ -163,4 +166,23 @@ class ActivityListViewController: UIViewController, UITableViewDataSource, UITab
         self.lottieAnimationView.stop()
     }
     
+}
+
+extension ActivityListViewController : UIAdaptivePresentationControllerDelegate {
+    
+    //Added
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        
+        if (controller.isKind(of: UIPopoverPresentationController.self)){
+            return .none
+        }
+        
+        if #available(iOS 13.0, *) {
+            return .fullScreen
+        }
+        else {
+            return .none
+        }
+    }
+
 }

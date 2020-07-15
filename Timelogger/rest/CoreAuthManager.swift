@@ -13,7 +13,7 @@ import SwiftyJSON
 class CoreAuthManager{
     
     /** Requests Core access-token using the authorization code received from the Core auth screen */
-    func getAccessTokenFromCode(code: String,callback:@escaping (_ error: String?, _ accessToken: String?)-> Void){
+    func getAccessTokenFromCode(code: String,callback:@escaping (_ error: String?, _ accessToken: String?, _ baseURl: String?)-> Void){
         let coreAccountHelper = CoreAccountHelper.sharedInstance
         
         let url = "https://sandbox-api-identity.bqecore.com/idp/connect/token"
@@ -33,7 +33,7 @@ class CoreAuthManager{
             }
             else if response.result.isFailure{
                 if let error = response.result.error{
-                    callback(error.localizedDescription ,nil)
+                    callback(error.localizedDescription ,nil,nil)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     return
                 }
@@ -43,14 +43,15 @@ class CoreAuthManager{
             if statusCode == 200{
                 if let jsonDict = json?.dictionary{
                     let accessToken = jsonDict["access_token"]?.string
-                    callback(nil,accessToken)
+                    let endpoint = jsonDict["endpoint"]?.string
+                    callback(nil,accessToken,endpoint)
                 }
                 else{
-                    callback("Some error occured",nil)
+                    callback("Some error occured",nil,nil)
                 }
             }
             else{
-                callback("Some error occured while getting access token from Core server",nil)
+                callback("Some error occured while getting access token from Core server",nil,nil)
             }
         }
     }

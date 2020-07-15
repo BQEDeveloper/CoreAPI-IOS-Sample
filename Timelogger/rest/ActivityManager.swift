@@ -14,7 +14,12 @@ class ActivityManager{
     /** Fetches actvities from Core server */
     func getActivities(callback:@escaping(_ success: Bool, _ error: String?,_ activities:[Activity]?) -> Void){
         
-        let url = "https://sandbox-api.bqecore.com/api/activity/query"
+        guard let baseURL = CoreAccount.sharedInstance.baseURL else {
+            callback(false, nil ,nil)
+            return
+        }
+        
+        let url = baseURL +  "activity"
         
         if let accessToken = CoreAccount.sharedInstance.accessToken {
             let headers = [
@@ -68,7 +73,13 @@ class ActivityManager{
     
     /** Posts a new Activity to Core server */
     func postActivity(activity: Activity, callback:@escaping(_ success: Bool,_ error: String?)-> Void){
-        let url = "https://sandbox-api.bqecore.com/api/activity"
+        
+        guard let baseURL = CoreAccount.sharedInstance.baseURL else {
+            callback(false, nil)
+            return
+        }
+
+        let url = baseURL + "/activity"
         
         if let accessToken = CoreAccount.sharedInstance.accessToken {
             let headers = [
@@ -116,11 +127,12 @@ class ActivityManager{
     
     /** Updates an old Activity */
     func putActivity(activity: Activity, callback:@escaping(_ success: Bool,_ error: String?)-> Void){
-        guard let activity_ID = activity.id else{
+        guard let activity_ID = activity.id, let baseURL = CoreAccount.sharedInstance.baseURL else{
             callback(false,"Invalid Activity")
             return
         }
-        let url = "https://sandbox-api.bqecore.com/api/activity/\(activity_ID)"
+
+        let url = baseURL + "/activity/\(activity_ID)"
         
         if let accessToken = CoreAccount.sharedInstance.accessToken {
             let headers = [
@@ -168,7 +180,13 @@ class ActivityManager{
     
     /** Deletes an Activity from the Core server */
     func deleteActivity(activityID: String, callback:@escaping(_ success: Bool, _ error: String?)-> Void){
-        let url = "https://sandbox-api.bqecore.com/api/activity/\(activityID)"
+        
+        guard let baseURL = CoreAccount.sharedInstance.baseURL else {
+            callback(false, nil)
+            return
+        }
+        
+        let url = baseURL +  "activity/\(activityID)"
         
         if let accessToken = CoreAccount.sharedInstance.accessToken {
             let headers = [
